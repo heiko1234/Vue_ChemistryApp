@@ -39,6 +39,7 @@ source .venv/bin/activate
 (.venv) uvicorn main:app --reload
 
 
+# check here locally: http://localhost:8000/docs
 
 
 # This repo is to create frontend with a sync to backend. totally from scratch
