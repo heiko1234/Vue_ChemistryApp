@@ -1,0 +1,47 @@
+
+
+# creation with
+
+npm create vue@latest
+
+
+
+# frondend
+
+cd vue_chemistry
+npm install
+npm run format
+npm run dev
+
+
+
+# virtual env
+
+python3 -m venv .venv
+
+# switch manually to virtual environment and then
+
+source .venv/bin/activate
+
+$(.venv) python3 -m pip install --upgrade pip
+
+$(.venv) pip install poetry
+
+$(.venv) poetry install 
+
+
+
+# backend fastapi
+
+source .venv/bin/activate
+
+(.venv) cd backend_service/backend_service/
+(.venv) uvicorn main:app --reload
+
+
+
+
+# This repo is to create frontend with a sync to backend. totally from scratch
+
+
+

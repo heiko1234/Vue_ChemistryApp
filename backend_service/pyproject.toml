@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "backend-chemistry"
+version = "0.1.0"
+description = ""
+authors = ["Heiko Kulinna <Heikokulinna@gmx.de>"]
+readme = "README.md"
+# packages = [{include = "backend_chemistry"}]
+package-mode = false
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^2.1.1"
+pandas = "^2.2.2"
+polars = "^1.6.0"
+scikit-learn = "^1.5.1"
+pyarrow = "^17.0.0"
+upath = "<1.0.1"
+pydantic = "^2.8.2"
+fastapi = "^0.112.2"
+uvicorn = "^0.30.6"
+python-dotenv = "^1.0.1"
+adlfs = "^2024.7.0"
+azure-identity = "^1.17.1"
+azure-storage-blob = "^12.22.0"
+
+[tool.poetry.group.dev.dependencies]
+bandit = "*"
+black = "*"
+flake8 = "*"
+ruff = "*"
+pytest = "*"
+pre-commit = "*"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
