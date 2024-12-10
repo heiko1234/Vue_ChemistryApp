@@ -27,7 +27,7 @@ $(.venv) python3 -m pip install --upgrade pip
 
 $(.venv) pip install poetry
 
-$(.venv) poetry install 
+$(.venv) poetry install
 
 
 
