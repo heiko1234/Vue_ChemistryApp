@@ -156,9 +156,8 @@ body {
 
 .start_button:hover {
     background-color: green;
-    color: white;
     font-weight: bold;
-    border: 2px solid rgb(0, 128, 0);
+    color: white;
     box-shadow: 0 0 15px rgba(0 128, 0, 0.685);
 }
 
