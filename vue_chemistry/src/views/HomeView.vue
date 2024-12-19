@@ -29,7 +29,10 @@
         </section>
 
         <section id="Tutorials">
-            <h1> Tutorials</h1>
+            <!-- <h1> Tutorials</h1> -->
+            <TutorialContent
+            :tutorials="tutorials"
+            />
         </section>
     </div>
   </div>
@@ -42,6 +45,8 @@ import homeviewheader from '@/components/HomeViewContent/homeviewheader.vue'
 import productinfo from '@/components/HomeViewContent/home_product_info.vue'
 import ContactModal from '@/components/HomeViewContent/contactmodal.vue'
 import HomeAboutInfo from '@/components/HomeViewContent/home_content_info.vue'
+import TutorialContent from '@/components/HomeViewContent/home_tutorialcontent.vue'
+
 
 export default {
     name:"HomeView",
@@ -50,7 +55,8 @@ export default {
         homeviewheader,
         ContactModal,
         productinfo,
-        HomeAboutInfo
+        HomeAboutInfo,
+        TutorialContent
     },
     data() {
         return {
@@ -69,6 +75,72 @@ export default {
             about_text: "Apollo is the god of the future. He is the god of prophecy, music, healing, light, and truth. He is the son of Zeus and Leto, and the twin brother of Artemis. Apollo is the ideal of the kouros, which means he has a beardless, athletic youth. He is also the god of the sun, and is often depicted with a bow and arrow.",
             about_text2: "Apollo is the god of the future. He is the god of prophecy, music, healing, light, and truth. He is the son of Zeus and Leto, and the twin brother of Artemis. Apollo is the ideal of the kouros, which means he has a beardless, athletic youth. He is also the god of the sun, and is often depicted with a bow and arrow.",
             about_text3: "Apollo is the god of the future. He is the god of prophecy, music, healing, light, and truth. He is the son of Zeus and Leto, and the twin brother of Artemis. Apollo is the ideal of the kouros, which means he has a beardless, athletic youth. He is also the god of the sun, and is often depicted with a bow and arrow.",
+            // Tutorials
+            tutorials: [
+                {
+                    title: "Tutorial 1",
+                    tag: "Beginner",
+                    description: "This is a beginner tutorial",
+                    image: "Apollo4.jpeg",
+                    link: "https://www.youtube.com/watch?v=9bZkp7q19f0"
+                },
+                {
+                    title: "Tutorial 2",
+                    tag: "Intermediate",
+                    description: "This is an intermediate tutorial",
+                    image: "datascience.jpeg",
+                    link: "https://www.youtube.com/watch?v=9bZkp7q19f0"
+                },
+                {
+                    title: "Tutorial 3",
+                    tag: "Advanced",
+                    description: "This is an advanced tutorial",
+                    image: "datascience.jpeg",
+                    link: "https://www.youtube.com/watch?v=9bZkp7q19f0"
+                }
+            ],
+            // Roadmap
+            roadmap: [
+                {
+                    title: "Now",
+                    list: [
+                        "Landing Page",
+                        "Product Page",
+                        "Onboarding"
+                    ]
+                },
+                {
+                    title: "Next",
+                    list: [
+                        "User Authentication",
+                        "User Dashboard",
+                        "User Settings"
+                    ]
+                },
+                {
+                    title: "Future",
+                    list: [
+                        "Mobile App",
+                        "Machine Learning",
+                        "AI"
+                    ]
+                }
+            ],
+            // FAQ
+            faq: [
+                {
+                    question: "What is Apollo?",
+                    answer: "Apollo is the god of the future. He is the god of prophecy, music, healing, light, and truth. He is the son of Zeus and Leto, and the twin brother of Artemis. Apollo is the ideal of the kouros, which means he has a beardless, athletic youth. He is also the god of the sun, and is often depicted with a bow and arrow."
+                },
+                {
+                    question: "Who is Apollo?",
+                    answer: "Apollo is the god of the future. He is the god of prophecy, music, healing, light, and truth. He is the son of Zeus and Leto, and the twin brother of Artemis. Apollo is the ideal of the kouros, which means he has a beardless, athletic youth. He is also the god of the sun, and is often depicted with a bow and arrow."
+                },
+                {
+                    question: "Where is Apollo?",
+                    answer: "Apollo is the god of the future. He is the god of prophecy, music, healing, light, and truth. He is the son of Zeus and Leto, and the twin brother of Artemis. Apollo is the ideal of the kouros, which means he has a beardless, athletic youth. He is also the god of the sun, and is often depicted with a bow and arrow."
+                }
+            ]
         }
     },
     methods: {
