@@ -9,7 +9,7 @@
         <img :src="imageSrc" alt="imageName" class="tutcardimage">
 
         <h2> {{tuttitle}} </h2>
-        <p>{{imageSrc}}</p>
+        <!-- <p>{{imageSrc}}</p> -->
         <div class="tutcarddescription">
             <p> {{tutcarddescription}}</p>
         </div>
