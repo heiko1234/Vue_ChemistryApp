@@ -103,7 +103,7 @@ export default {
 }
 
 .service_button:hover {
-    background-color: #45a049;
+    background-color: var(--secondary-color);
 }
 
 .service_button:disabled {
