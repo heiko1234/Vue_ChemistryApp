@@ -7,6 +7,10 @@
             <img src="@/assets/theme/Apollo.jpeg" alt="Logo" class="logo" @click="goToMainPage">
         </div>
 
+        <div class="hhi_center">
+            <h2 :class="headerClass">{{ headerText }}</h2>
+        </div>
+
         <div class="hhi_right">
 
         <!-- # make a drop down menu -->
@@ -47,11 +51,30 @@ export default {
         },
         selectRole(role) {
                 this.selectedRole = role;
+                switch(role) {
+                    case "Developer":
+                        this.headerText="Welcome Developer";
+                        this.headerClass="developer-header";
+                        break;
+                    case "Admin":
+                        this.headerText="Welcome Admin";
+                        this.headerClass="admin-header";
+                        break;
+                    case "User":
+                        this.headerText="Welcome User";
+                        this.headerClass="user-header";
+                        break;
+                    default:
+                        this.headerText="Default"
+                        this.headerClass="default-header"
+                }
             }
         },
     data() {
         return {
-            selectedRole: 'User'
+            selectedRole: 'User',
+            headerText: "Welcome User",
+            headerClass: "user-header"
         };
     }
 
@@ -102,7 +125,15 @@ body {
     justify-content: left;
     align-items: center;
     padding: 5px;
-    width: 100%;
+    width: 30%;
+}
+
+.hhi_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 40%
 }
 
 .hhi_right {
@@ -111,7 +142,7 @@ body {
     align-items: center;
     padding: 5px;
     margin-right: 50px;
-    width: 100%;
+    width: 30%
 }
 
 .separator {
@@ -120,6 +151,22 @@ body {
     background-color: black;
     margin: 0;
     padding: 0;
+}
+
+.user-header {
+    color: blue;
+}
+
+.developer-header {
+    color: green;
+}
+
+.admin-header {
+    color: red;
+}
+
+.default-header {
+    color: orchid;
 }
 
 
@@ -135,6 +182,7 @@ body {
     padding: 16px;
     font-size: 16px;
     border: none;
+    border-radius: 20px;
     cursor: pointer;
 }
 
