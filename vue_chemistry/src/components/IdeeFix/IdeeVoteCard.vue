@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-        <img src="@/assets/service_pics/ideafix_beklopt2.jpeg" alt="" :class="{ 'disabled_image': !isButtonActive }" class="service_image">
+        <img src="@/assets/service_pics/Ideafix_vote.jpeg" alt="" :class="{ 'disabled_image': !isButtonActive }" class="service_image">
         <div class="service_card_text">
             <h2> {{servicetitle}} </h2>
             <h3>{{servicesubtitle}} </h3>
@@ -9,7 +9,7 @@
             </div>
             <div class="service_buttons">
                 <!-- <a class="service_button" :href=servicelink> Start</a> -->
-                <button class="service_button" @click="startIdeaadding" :disabled="!isButtonActive">Start</button>
+                <button class="service_button" @click="startIdeavoting" :disabled="!isButtonActive">Start</button>
             </div>
         </div>
     </div>
@@ -17,18 +17,18 @@
 
 <script>
 export default {
-    name: "IdeeFixCard",
+    name: "IdeeVoteCard",
     data() {
         return {
-            servicetitle: "IdeFix",
-            servicesubtitle: "IdeFix is a service that helps to submit ideas for our services",
-            servicedescription: "You have ideas for our services? Submit them here!",
-            isButtonActive: true
+            servicetitle: "Idea Voting",
+            servicesubtitle: "Search for submitted ideas and vote for them",
+            servicedescription: "Check submitted ideas for features, comment and vote for them",
+            isButtonActive: true,
         }
     },
     methods: {
-        startIdeaadding() {
-            console.log('startIdeaadding');
+        startIdeavoting() {
+            console.log('startIdeaVoting');
         }
     }
 
@@ -105,6 +105,7 @@ export default {
 .service_button:hover {
     background-color: #45a049;
 }
+
 
 .service_button:disabled {
     background: #ccc;

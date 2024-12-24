@@ -51,6 +51,7 @@ export default {
         },
         selectRole(role) {
                 this.selectedRole = role;
+                this.$emit("roleSelected", role);
                 switch(role) {
                     case "Developer":
                         this.headerText="Welcome Developer";

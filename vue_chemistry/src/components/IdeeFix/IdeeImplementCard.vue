@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-        <img src="@/assets/service_pics/ideafix_beklopt2.jpeg" alt="" :class="{ 'disabled_image': !isButtonActive }" class="service_image">
+        <img src="@/assets/service_pics/Asterix_Zaubertrank.jpeg" alt="" :class="{ 'disabled_image': !isButtonActive }" class="service_image">
         <div class="service_card_text">
             <h2> {{servicetitle}} </h2>
             <h3>{{servicesubtitle}} </h3>
@@ -9,7 +9,7 @@
             </div>
             <div class="service_buttons">
                 <!-- <a class="service_button" :href=servicelink> Start</a> -->
-                <button class="service_button" @click="startIdeaadding" :disabled="!isButtonActive">Start</button>
+                <button class="service_button" @click="startFeatureEngineering" :disabled="!isButtonActive">Start</button>
             </div>
         </div>
     </div>
@@ -20,15 +20,15 @@ export default {
     name: "IdeeFixCard",
     data() {
         return {
-            servicetitle: "IdeFix",
-            servicesubtitle: "IdeFix is a service that helps to submit ideas for our services",
-            servicedescription: "You have ideas for our services? Submit them here!",
-            isButtonActive: true
+            servicetitle: "Feature Managing",
+            servicesubtitle: "New Features for our services",
+            servicedescription: "Feature Requests get managed here by the Developer Team",
+            isButtonActive: true,
         }
     },
     methods: {
-        startIdeaadding() {
-            console.log('startIdeaadding');
+        startFeatureEngineering() {
+            console.log('startFeatureEngineering');
         }
     }
 
@@ -63,7 +63,6 @@ export default {
 .disabled_image {
     filter: grayscale(100%);
 }
-
 
 .service_card_text h2 {
     margin-top: 0;

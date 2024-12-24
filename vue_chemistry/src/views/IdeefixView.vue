@@ -1,8 +1,12 @@
 <template>
     <div class="ideefix">
-        <ideefixheader></ideefixheader>
+        <ideefixheader @roleSelected="handleRole"></ideefixheader>
         <div class="pagecontent">
-            <IdeeFixCard></IdeeFixCard>
+            <div class="ideacards">
+                <IdeeFixCard ref="editCard"></IdeeFixCard>
+                <IdeeVoteCard ref="voteCard"></IdeeVoteCard>
+                <IdeeImplementCard ref="implementCard"></IdeeImplementCard>
+            </div>
         </div>
     </div>
   
@@ -12,19 +16,53 @@
 
 import ideefixheader from '@/components/IdeeFix/IdeeFixHeader.vue'
 import IdeeFixCard from '@/components/IdeeFix/IdeeFixCard.vue'
+import IdeeVoteCard from '@/components/IdeeFix/IdeeVoteCard.vue'
+import IdeeImplementCard from '@/components/IdeeFix/IdeeImplementCard.vue'
 
 export default {
     name: "IdeefixView",
     components: {
         ideefixheader,
-        IdeeFixCard
+        IdeeFixCard,
+        IdeeVoteCard,
+        IdeeImplementCard
+    },
+    data() {
+        return {
+            selectedRole: 'User',
+        };
+    },
+    methods: {
+        handleRole(role) {
+            this.selectedRole=role;
+            this.updateCards();
+        },
+        updateCards() {
+            console.log('update Cards');
+            if (this.selectedRole ==="Developer") {
+                this.$refs.editCard.isButtonActive=true;
+                this.$refs.voteCard.isButtonActive=true;
+                this.$refs.implementCard.isButtonActive=true;
+            }
+            else if (this.selectedRole==="Admin") {
+                this.$refs.editCard.isButtonActive=false;
+                this.$refs.voteCard.isButtonActive=false;
+                this.$refs.implementCard.isButtonActive=true;
+            }
+            else if (this.selectedRole==="User") {
+                this.$refs.editCard.isButtonActive=true;
+                this.$refs.voteCard.isButtonActive=true;
+                this.$refs.implementCard.isButtonActive=false;
+            }
+        }
+    },
+    mounted() {
+        this.updateCards();
     }
-
-
 }
 </script>
 
-<style>
+<style scoped>
 
 body {
     margin: 0;
@@ -54,6 +92,14 @@ body {
     overflow-y: auto;
     padding: 10px;
 }
+
+.ideacards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
 
 
 </style>
