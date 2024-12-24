@@ -12,23 +12,38 @@
                 <button class="service_button" @click="startIdeaadding" :disabled="!isButtonActive">Start</button>
             </div>
         </div>
+        <IdeaModal :isIdeaModalVisible="isIdeaModalVisible" @closeIdeaModal="closeIdeaModal"></IdeaModal>
     </div>
 </template>
 
 <script>
+import IdeaModal from '@/components/IdeeFix/Modal_SubmitIdea.vue'
+
+
 export default {
     name: "IdeeFixCard",
+    components: {
+        IdeaModal
+    },
     data() {
         return {
             servicetitle: "IdeFix",
             servicesubtitle: "IdeFix is a service that helps to submit ideas for our services",
             servicedescription: "You have ideas for our services? Submit them here!",
-            isButtonActive: true
+            isButtonActive: true,
+            isIdeaModalVisible: false
         }
     },
     methods: {
         startIdeaadding() {
             console.log('startIdeaadding');
+            if (this.isButtonActive) {
+                console.log("open Modal");
+                this.isIdeaModalVisible = true;
+            }
+        },
+        closeIdeaModal() {
+            this.isIdeaModalVisible = !this.isIdeaModalVisible;
         }
     }
 
