@@ -7,22 +7,22 @@
             <hr />
             <div class="ideaflex">
                 <h2>Name</h2>
-                <input class="input_text" type="text" />
+                <input class="input_text" id="submit_name" type="text" />
             </div>
             <div class="ideaflex">
                 <h2>Email</h2>
-                <input class="input_text" type="email" />
+                <input class="input_text" id="submit_email" type="email" />
             </div>
             <div class="ideaflex">
                 <h2>Idea Title</h2>
-                <input class="input_text" type="text" />
+                <input class="input_text" id="submit_ideatitle" type="text" />
             </div>
             <div class="ideaflex">
                 <h2>Idea Description</h2>
-                <textarea class="input_text_larger"></textarea>
+                <textarea class="input_text_larger" id="sumit_ideadescription" ></textarea>
             </div>
             <div class="ideaflex">
-                <button class="submit_button">Submit</button>
+                <button class="submit_button" @click="submitIdea">Submit</button>
                 <button class="cancel_button" @click.self="closeIdeaModal">Cancel</button>
                 <button class="close_button" @click.self="closeIdeaModal">Close</button>
             </div>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+// import axios from 'axios';
+
 export default {
   name: 'IdeaModal',
   props: {
@@ -45,7 +47,23 @@ export default {
     closeIdeaModal() {
       this.$emit('closeIdeaModal')
       console.log('toggleModal closeModal: ', this.isIdeaModalVisible)
-    }
+    },
+    async submitIdea() {
+      console.log('submitIdea')
+        try {
+            console.log('Idea submitted');
+            // const response = await axios.post('http://localhost:8000/submit_idea', {
+            //     name: this.submit_name,
+            //     email: this.submit_email,
+            //     short_title: this.submit_ideatitle,
+            //     idea_description: this.sumit_ideadescription
+            // });
+            // console.log('Idea submitted:', response.data);
+            this.closeIdeaModal();
+        } catch (error) {
+            console.error('Error submitting idea:', error);
+        }
+      }
   }
 }
 </script>

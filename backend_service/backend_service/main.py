@@ -22,6 +22,7 @@ from fastapi import APIRouter
 
 from routers.general.general import router as general
 from routers.access.access import router as access
+from routers.postgres_ideefix.postgres_ideefix import router as postgres_ideefix
 
 app = FastAPI()
 
@@ -29,7 +30,7 @@ app = FastAPI()
 
 app.include_router(general, tags=["General"])
 app.include_router(access, tags=["Access"])
-
+app.include_router(postgres_ideefix, tags=["Postgres_Ideefix"])
 
 
 
