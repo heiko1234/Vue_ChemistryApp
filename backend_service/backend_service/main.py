@@ -31,7 +31,7 @@ app = FastAPI()
 # Configure CORS
 origins = [
     "http://localhost:8080",  # Add your frontend URL here
-    "http://localhost:5173",
+    "http://localhost:5173",   # Add your Vue.js frontend URL here
     "http://127.0.0.1:8080"   # Add your frontend URL here
 ]
 

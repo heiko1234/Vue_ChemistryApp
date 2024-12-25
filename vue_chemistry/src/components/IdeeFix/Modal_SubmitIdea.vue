@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+import {useToast} from 'vue-toastification';
 
 export default {
   name: 'IdeaModal',
@@ -58,6 +59,7 @@ export default {
     },
     async submitIdea() {
       console.log('submitIdea')
+      const toast = useToast();
         try {
           console.log('Idea get submitted');
           const response = await axios.post('http://127.0.0.1:8000/api/submit_idea', {
@@ -69,9 +71,11 @@ export default {
           console.log('Idea is submitted')
           console.log('Idea submitted response:', response.data);
           this.closeIdeaModal();
+          toast.success('Idea submitted successfully!');
           }
           catch (error) {
             console.error('Error submitting idea:', error);
+            toast.error('Failed to submit idea.');
           }
       }
   }
