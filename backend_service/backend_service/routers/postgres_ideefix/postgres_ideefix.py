@@ -28,7 +28,7 @@ async def submit_idea(idea: Idea):
     """
 
     try:
-        await execute_sql(query)
+        execute_sql(query)
         return {"message": "Idea submitted successfully"}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
@@ -37,6 +37,6 @@ async def submit_idea(idea: Idea):
 @router.get("/get_ideas")
 async def get_ideas():
     query = "SELECT * FROM ideefix_ideas"
-    return await execute_sql(query)
+    return execute_sql(query)
 
 

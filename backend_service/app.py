@@ -9,6 +9,9 @@ load_dotenv()
 local_run = os.getenv("LOCAL_RUN")
 
 
+# http://127.0.0.1:8000 
+
+
 if __name__ == "__main__":
 
     if local_run:

@@ -1,6 +1,8 @@
 
 
-
+# cd backend_service/
+# source .venv/bin/activate
+# python3
 
 
 import psycopg2
@@ -47,15 +49,16 @@ def execute_sql(sql):
 #     """
 
 
+# create a table
 
-sql = """CREATE TABLE ideefix_ideas (
-    idea_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    short_title VARCHAR(255) NOT NULL UNIQUE,
-    idea_description TEXT NOT NULL
-    )
-    """
+# sql = """CREATE TABLE ideefix_ideas (
+#     idea_id SERIAL PRIMARY KEY,
+#     name VARCHAR(255) NOT NULL,
+#     email VARCHAR(255) NOT NULL,
+#     short_title VARCHAR(255) NOT NULL UNIQUE,
+#     idea_description TEXT NOT NULL
+#     )
+#     """
 
 
 execute_sql(sql)
