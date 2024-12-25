@@ -54,6 +54,10 @@ export default {
   },
   methods: {
     closeIdeaModal() {
+      this.submit_name = '';
+      this.submit_email = '';
+      this.submit_ideatitle = '';
+      this.sumit_ideadescription = '';
       this.$emit('closeIdeaModal')
       console.log('toggleModal closeModal: ', this.isIdeaModalVisible)
     },
@@ -70,6 +74,10 @@ export default {
           });
           console.log('Idea is submitted')
           console.log('Idea submitted response:', response.data);
+          this.submit_name = '';
+          this.submit_email = '';
+          this.submit_ideatitle = '';
+          this.sumit_ideadescription = '';
           this.closeIdeaModal();
           toast.success('Idea submitted successfully!');
           }
