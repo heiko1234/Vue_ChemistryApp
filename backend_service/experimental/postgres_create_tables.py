@@ -61,11 +61,15 @@ def execute_sql(sql):
 #     """
 
 
-execute_sql(sql)
+# execute_sql(sql)
 
 
 sql = "SELECT * FROM ideefix_ideas"
 execute_sql(sql)
+
+
+# ggf. löschen und mit Schema neu anfangen, wo active und inactive Ideen getrennt sind
+
 
 
 
@@ -75,19 +79,95 @@ execute_sql(sql)
 
 # first test entry
 
-my_name = "John Doe"
-my_email = "John.Doe@xyz.com"
-my_short_title = "My first idea"
-my_idea_description = "This is a very good idea, with a long and detailed description."
+# my_name = "John Doe"
+# my_email = "John.Doe@xyz.com"
+# my_short_title = "My first idea"
+# my_idea_description = "This is a very good idea, with a long and detailed description."
 
+
+# sql = f"""
+#     INSERT INTO ideefix_ideas(name, email, short_title, idea_description)
+#     VALUES('{my_name}', '{my_email}', '{my_short_title}', '{my_idea_description}')
+#     """
+
+# execute_sql(sql)
+
+
+
+# sql = "SELECT * FROM ideefix_ideas"
+# execute_sql(sql)
+
+
+
+
+my_name = "Jane Doe"
+my_email = "Jane.Doe@xyz.com"
+my_short_title = "My idea for the id returning"
+my_idea_description = "This is another very good idea, with a long and detailed description."
 
 sql = f"""
     INSERT INTO ideefix_ideas(name, email, short_title, idea_description)
     VALUES('{my_name}', '{my_email}', '{my_short_title}', '{my_idea_description}')
-    """
+    RETURNING idea_id;
+"""
 
 execute_sql(sql)
 
+
+
+sql = "SELECT idea_id FROM ideefix_ideas ORDER BY idea_id DESC LIMIT 1"
+execute_sql(sql)
+
+
+
+
+
+
+
+
+# create a table for setting ideas active or inactive in an own table
+
+sql = """
+CREATE TABLE ideefix_idea_status (
+    id SERIAL PRIMARY KEY,
+    idea_id INTEGER NOT NULL REFERENCES ideefix_ideas(idea_id),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+"""
+
+execute_sql(sql)
+
+
+
+# Insert a new idea and get the idea_id
+my_name = "Alice Smith"
+my_email = "Alice.Smith@xyz.com"
+my_short_title = "My new idea"
+my_idea_description = "This is a fantastic idea, with a detailed description."
+
+sql = f"""
+    INSERT INTO ideefix_ideas(name, email, short_title, idea_description)
+    VALUES('{my_name}', '{my_email}', '{my_short_title}', '{my_idea_description}')
+    RETURNING idea_id;
+"""
+
+new_idea_id = execute_sql(sql)[0][0]
+new_idea_id
+
+
+# Insert into ideefix_idea_status with the new idea_id
+sql = f"""
+    INSERT INTO ideefix_idea_status(idea_id, is_active)
+    VALUES({new_idea_id}, TRUE);
+"""
+
+execute_sql(sql)
+
+# check working
+
+
+sql = "SELECT * FROM ideefix_idea_status"
+execute_sql(sql)
 
 
 sql = "SELECT * FROM ideefix_ideas"
@@ -95,5 +175,37 @@ execute_sql(sql)
 
 
 
+sql = """
+        SELECT *
+        FROM ideefix_ideas
+        JOIN ideefix_idea_status ON ideefix_ideas.idea_id = ideefix_idea_status.idea_id
+        WHERE ideefix_idea_status.is_active = TRUE
+    """
+execute_sql(sql)
 
+
+
+# Drop the ideefix_idea_status table
+sql = "DROP TABLE IF EXISTS ideefix_idea_status"
+execute_sql(sql)
+
+# Drop the ideefix_ideas table
+sql = "DROP TABLE IF EXISTS ideefix_ideas"
+execute_sql(sql)
+
+
+
+
+# create a table
+
+sql = """
+CREATE TABLE ideefix_votes (
+    id SERIAL PRIMARY KEY,
+    idea_id INTEGER NOT NULL REFERENCES ideefix_ideas(id),
+    vote_value INTEGER NOT NULL,  -- 1 for upvote, -1 for downvote
+);
+"""
+
+
+execute_sql(sql)
 

@@ -1,3 +1,6 @@
+
+<!-- Modal_SumitIdea gets started in IdeeFixCard.vue via isIdeaModalVisible -->
+
 <template>
   <div class="modalrapper" v-if="isIdeaModalVisible">
     <div class="backdrop" @click.self="closeIdeaModal">

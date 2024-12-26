@@ -12,23 +12,38 @@
                 <button class="service_button" @click="startIdeavoting" :disabled="!isButtonActive">Start</button>
             </div>
         </div>
+        <ReviewModal :isReviewModalVisible="isReviewModalVisible" @closeReviewModal="closeReviewModal"></ReviewModal>
     </div>
 </template>
 
 <script>
+
+import ReviewModal from '@/components/IdeeFix/Modal_Review.vue'
+
 export default {
     name: "IdeeVoteCard",
+    components: {
+        ReviewModal
+    },
     data() {
         return {
-            servicetitle: "Idea Voting",
-            servicesubtitle: "Search for submitted ideas and vote for them",
-            servicedescription: "Check submitted ideas for features, comment and vote for them",
+            servicetitle: "Idea Review",
+            servicesubtitle: "Review the ideas that have been submitted",
+            servicedescription: "You can review the ideas that have been submitted and vote for them for prioritization",
             isButtonActive: true,
+            isReviewModalVisible: false,
         }
     },
     methods: {
         startIdeavoting() {
             console.log('startIdeaVoting');
+            if (this.isButtonActive) {
+                console.log("open Modal");
+                this.isReviewModalVisible = true;
+            }
+        },
+        closeReviewModal() {
+            this.isReviewModalVisible = !this.isReviewModalVisible;
         }
     }
 
