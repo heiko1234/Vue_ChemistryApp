@@ -25,6 +25,11 @@ class IdeaFilter(BaseModel):
     short_title: Optional[str] = None
     idea_description: Optional[str] = None
 
+class IdeaVote(BaseModel):
+    idea_id: int
+
+
+
 
 @router.post("/submit_idea")
 async def submit_idea(idea: Idea):
@@ -55,6 +60,13 @@ async def submit_idea(idea: Idea):
             VALUES({new_idea_id}, TRUE);
         """
         execute_sql(sql)
+
+        sql = f"""
+            INSERT INTO ideefix_idea_votes(idea_id, vote_count_good, vote_count_bad)
+            VALUES({new_idea_id}, 0, 0);
+        """
+        execute_sql(sql)
+
 
         return {"message": "Idea submitted successfully"}
     except Exception as e:
@@ -97,8 +109,8 @@ async def get_active_ideas_filtered(idea_filter: IdeaFilter):
 
     filter_query = " AND ".join(filters) if filters else "1=1"
 
-    print(f"get_active_ideas_filtered: {idea_filter}")
-    print(f"get_active_ideas_filtered: {filter_query}")
+    # print(f"get_active_ideas_filtered: {idea_filter}")
+    # print(f"get_active_ideas_filtered: {filter_query}")
 
 
     # query = f"""
@@ -108,21 +120,97 @@ async def get_active_ideas_filtered(idea_filter: IdeaFilter):
     #         WHERE ideefix_idea_status.is_active = TRUE
     #         AND {filter_query}
     #     """
+    # query = f"""
+    #         SELECT ideefix_ideas.idea_id, ideefix_ideas.name, ideefix_ideas.short_title, ideefix_ideas.idea_description
+    #         FROM ideefix_ideas
+    #         JOIN ideefix_idea_status ON ideefix_ideas.idea_id = ideefix_idea_status.idea_id
+    #         WHERE ideefix_idea_status.is_active = TRUE
+    #         AND {filter_query}
+    #     """
+
     query = f"""
-            SELECT ideefix_ideas.name, ideefix_ideas.short_title, ideefix_ideas.idea_description
+            SELECT ideefix_ideas.idea_id, ideefix_ideas.name, ideefix_ideas.short_title, ideefix_ideas.idea_description, ideefix_idea_votes.vote_count_bad, ideefix_idea_votes.vote_count_good
             FROM ideefix_ideas
             JOIN ideefix_idea_status ON ideefix_ideas.idea_id = ideefix_idea_status.idea_id
+            LEFT JOIN ideefix_idea_votes ON ideefix_ideas.idea_id = ideefix_idea_votes.idea_id
             WHERE ideefix_idea_status.is_active = TRUE
             AND {filter_query}
         """
 
+
     data= execute_sql(query)
 
 
-    print(f"get_active_ideas_filtered: {query}")
-    print("get_active_ideas_filtered")
-    print(data)
+    # print(f"get_active_ideas_filtered: {query}")
+    # print("get_active_ideas_filtered")
+    # print(data)
 
     return data
+
+
+
+
+@router.post("/vote_idea_good")
+async def vote_idea(vote: IdeaVote):
+
+    print("vote_idea")
+    print(f"vote_idea: {vote}")
+
+    # idea_id: int
+
+    try:
+        query = f"""
+            UPDATE ideefix_idea_votes
+            SET vote_count_good = vote_count_good + 1
+            WHERE idea_id = {vote.idea_id}
+        """
+        execute_sql(query)
+        return {"message": "Vote submitted successfully"}
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid vote type")
+
+
+
+@router.post("/vote_idea_bad")
+async def vote_idea(vote: IdeaVote):
+
+    print("vote_idea")
+    print(f"vote_idea: {vote}")
+
+    # idea_id: int
+
+    try:
+        query = f"""
+            UPDATE ideefix_idea_votes
+            SET vote_count_bad = vote_count_bad + 1
+            WHERE idea_id = {vote.idea_id}
+        """
+        execute_sql(query)
+        return {"message": "Vote submitted successfully"}
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid vote type")
+
+
+
+
+@router.post("/get_votes")
+async def get_votes(vote: IdeaVote):
+
+    print("get_votes")
+    print(f"get_votes: {vote}")
+
+    query = f"""
+        SELECT vote_count_good, vote_count_bad
+        FROM ideefix_idea_votes
+        WHERE idea_id = {vote.idea_id}
+    """
+
+    return execute_sql(query)
+
+
+
+
 
 

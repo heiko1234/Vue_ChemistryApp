@@ -66,6 +66,18 @@ execute_sql(sql)
 
 
 
+sql = """CREATE TABLE ideefix_idea_votes (
+    id SERIAL PRIMARY KEY,
+    idea_id INTEGER NOT NULL REFERENCES ideefix_ideas(idea_id),
+    vote_count_good INTEGER NOT NULL DEFAULT 0,
+    vote_count_bad INTEGER NOT NULL DEFAULT 0
+    )
+    """
+execute_sql(sql)
+
+
+
+
 
 sql = """CREATE TABLE feature_ideas (
     feature_id SERIAL PRIMARY KEY,

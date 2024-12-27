@@ -31,19 +31,39 @@
             <table v-if="ideas.length">
               <thead>
                 <tr>
+                  <th>Index</th>
                   <th>Name</th>
                   <th>Title</th>
                   <th>Description</th>
+                  <th>Votes</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="idea in ideas" :key="idea.idea_id">
-                  <td>{{ idea[0] }}</td>
-                  <td>{{ idea[1] }}</td>
-                  <td>{{ idea[2] }}</td>
-                  <!-- <td>{{ idea.name }}</td>
-                  <td>{{ idea.short_title }}</td>
-                  <td>{{ idea.idea_description }}</td> -->
+                  <td>{{ idea[0] }}</td>  <!-- Index -->
+                  <td>{{ idea[1] }}</td>  <!-- Name -->
+                  <td>{{ idea[2] }}</td>  <!-- Title -->
+                  <td>{{ idea[3] }}</td>  <!-- Description -->
+                  <!-- Votes -->
+                    <td>
+                      <div class="vote_flex">
+                        <div class="vote-container">
+                        <!-- votes next to each other -->
+                        <!-- bad votes -->
+                          <span class="bad_votes">{{ idea[4] }}</span>
+                          <button @click="voteIdeabad(idea[0])">
+                            <img src="@/assets/votes/bad.png" alt="Bad" class="vote-icon" />
+                          </button>
+                        </div>
+                        <div class="vote-container">
+                          <!-- good votes -->
+                          <span class="good_votes">{{ idea[5] }}</span>
+                          <button @click="voteIdeagood(idea[0])">
+                            <img src="@/assets/votes/good.png" alt="Good" class="vote-icon" />
+                          </button>
+                        </div>
+                      </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -108,11 +128,39 @@ export default {
       catch (error) {
         console.error('Error fetching ideas:', error);
       }
+    },
+    async voteIdeagood(idea_id) {
+      try {
+        console.log('Voting on idea good');
+        console.log('Idea ID:', idea_id);
+        const response = await axios.post('http://127.0.0.1:8000/api/vote_idea_good', {
+          idea_id: idea_id,
+        });
+          console.log('Vote response:', response.data);
+          this.searchIdeas(); // Refresh the ideas list after voting
+        }
+        catch (error) {
+          console.error('Error voting on idea:', error);
+      }
+    },
+    async voteIdeabad(idea_id) {
+      try {
+        console.log('Voting on idea bad');
+        console.log('Idea ID:', idea_id);
+        const response = await axios.post('http://127.0.0.1:8000/api/vote_idea_bad', {
+          idea_id: idea_id,
+        });
+          console.log('Vote response:', response.data);
+          this.searchIdeas(); // Refresh the ideas list after voting
+        }
+        catch (error) {
+          console.error('Error voting on idea:', error);
+      }
     }
   },
-  // mounted() {
-  //   this.searchIdeas();
-  // }
+  mounted() {
+    this.searchIdeas();
+  }
 
 }
 </script>
@@ -133,7 +181,7 @@ export default {
 
 .reviewmodal {
     width: 90%;
-    max-width: 40rem;
+    max-width: 50rem;
     background: white;
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -172,9 +220,11 @@ export default {
 }
 
 table {
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 th, td {
@@ -190,5 +240,30 @@ th {
 tr:hover {
   background-color: #f5f5f5;
 }
+
+.vote_flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vote-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vote-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.good_votes {
+  color: green;
+}
+
+.bad_votes {
+  color: red;
+}
+
 
 </style>
