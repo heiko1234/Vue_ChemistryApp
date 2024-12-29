@@ -39,7 +39,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="idea in ideas" :key="idea.idea_id">
+                <tr v-for="idea in ideas" :key="idea[0]">
                   <td>{{ idea[0] }}</td>  <!-- Index -->
                   <td>{{ idea[1] }}</td>  <!-- Name -->
                   <td>{{ idea[2] }}</td>  <!-- Title -->
@@ -51,14 +51,14 @@
                         <!-- votes next to each other -->
                         <!-- bad votes -->
                           <span class="bad_votes">{{ idea[4] }}</span>
-                          <button @click="voteIdeabad(idea[0])">
+                          <button class="votebutton" @click="voteIdeabad(idea[0])" :disabled="votedIdeas.has(idea[0])">
                             <img src="@/assets/votes/bad.png" alt="Bad" class="vote-icon" />
                           </button>
                         </div>
                         <div class="vote-container">
                           <!-- good votes -->
                           <span class="good_votes">{{ idea[5] }}</span>
-                          <button @click="voteIdeagood(idea[0])">
+                          <button class="votebutton" @click="voteIdeagood(idea[0])" :disabled="votedIdeas.has(idea[0])">
                             <img src="@/assets/votes/good.png" alt="Good" class="vote-icon" />
                           </button>
                         </div>
@@ -95,7 +95,8 @@ export default {
       review_name: '',
       review_ideatitle: '',
       review_ideadescription: '',
-      ideas: []
+      ideas: [],
+      votedIdeas: new Set(),
     }
   },
   watch: {
@@ -107,6 +108,11 @@ export default {
     },
     review_ideadescription(newVal) {
       this.searchIdeas();
+    },
+    isReviewModalVisible(newVal) {
+      if (newVal) {
+        this.searchIdeas();
+      }
     }
   },
 
@@ -124,6 +130,8 @@ export default {
         });
         this.ideas = response.data;
         console.log('Ideas:', response.data);
+        this.votedIdeas.add(idea_id); // Add the idea to the voted set
+        this.searchIdeas();  // Refresh the ideas list after voting
       }
       catch (error) {
         console.error('Error fetching ideas:', error);
@@ -137,7 +145,10 @@ export default {
           idea_id: idea_id,
         });
           console.log('Vote response:', response.data);
+          this.votedIdeas.add(idea_id); // Add the idea to the voted set
           this.searchIdeas(); // Refresh the ideas list after voting
+          console.log('Voted ideas:', this.votedIdeas);
+          console.log('Ideas:', this.idea_id);
         }
         catch (error) {
           console.error('Error voting on idea:', error);
@@ -160,7 +171,7 @@ export default {
   },
   mounted() {
     this.searchIdeas();
-  }
+  },
 
 }
 </script>
@@ -263,6 +274,18 @@ tr:hover {
 
 .bad_votes {
   color: red;
+}
+
+.votebutton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.votebutton:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
 }
 
 

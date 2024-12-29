@@ -12,23 +12,37 @@
                 <button class="service_button" @click="startFeatureEngineering" :disabled="!isButtonActive">Start</button>
             </div>
         </div>
+        <FeatureModal :isFeatureModalVisible="isFeatureModalVisible" @closeFeatureModal="closeFeatureModal"></FeatureModal>
     </div>
 </template>
 
 <script>
+import FeatureModal from '@/components/IdeeFix/Modal_Features.vue'
+
 export default {
     name: "IdeeFixCard",
+    components: {
+        FeatureModal
+    },
     data() {
         return {
             servicetitle: "Feature Managing",
             servicesubtitle: "New Features for our services",
             servicedescription: "Feature Requests get managed here by the Developer Team",
             isButtonActive: true,
+            isFeatureModalVisible: false,
         }
     },
     methods: {
         startFeatureEngineering() {
             console.log('startFeatureEngineering');
+            if (this.isButtonActive) {
+                console.log("open Modal");
+                this.isFeatureModalVisible = true;
+            }
+        },
+        closeFeatureModal() {
+            this.isFeatureModalVisible = !this.isFeatureModalVisible;
         }
     }
 

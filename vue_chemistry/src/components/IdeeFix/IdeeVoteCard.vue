@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 import ReviewModal from '@/components/IdeeFix/Modal_Review.vue'
 
 export default {

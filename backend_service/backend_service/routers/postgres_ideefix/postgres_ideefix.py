@@ -135,6 +135,7 @@ async def get_active_ideas_filtered(idea_filter: IdeaFilter):
             LEFT JOIN ideefix_idea_votes ON ideefix_ideas.idea_id = ideefix_idea_votes.idea_id
             WHERE ideefix_idea_status.is_active = TRUE
             AND {filter_query}
+            ORDER BY ideefix_ideas.idea_id DESC
         """
 
 
