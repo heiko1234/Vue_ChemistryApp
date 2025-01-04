@@ -101,7 +101,16 @@ execute_sql(sql)
 
 
 
+sql = """
+CREATE TABLE ideefix_feature_ideas_status (
+    id SERIAL PRIMARY KEY,
+    feature_id INTEGER NOT NULL REFERENCES feature_ideas(feature_id),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    status VARCHAR(25) NOT NULL DEFAULT 'Not Categorized'
+);
+"""
 
+execute_sql(sql)
 
 
 

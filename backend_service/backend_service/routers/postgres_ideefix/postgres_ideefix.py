@@ -81,8 +81,8 @@ async def get_ideas():
 
 
 
-@router.get("/get_idea_on_status")
-async def get_idea_on_status():
+@router.get("/get_idea_on_status_active")
+async def get_idea_on_status_active():
 
     query = """
             SELECT *

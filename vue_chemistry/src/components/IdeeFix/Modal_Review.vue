@@ -130,8 +130,8 @@ export default {
         });
         this.ideas = response.data;
         console.log('Ideas:', response.data);
-        this.votedIdeas.add(idea_id); // Add the idea to the voted set
-        this.searchIdeas();  // Refresh the ideas list after voting
+        // this.votedIdeas.add(idea_id); // Add the idea to the voted set
+        // this.searchIdeas();  // Refresh the ideas list after voting
       }
       catch (error) {
         console.error('Error fetching ideas:', error);

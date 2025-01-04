@@ -21,7 +21,9 @@ python3 -m venv .venv
 
 # switch manually to virtual environment and then
 
-source .venv/bin/activate
+source .venv/bin/activate  # for linux
+
+# & ./.venv/Scripts/Activate.ps1   # for windows
 
 $(.venv) python3 -m pip install --upgrade pip
 
